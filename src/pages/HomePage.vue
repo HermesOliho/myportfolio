@@ -7,7 +7,6 @@ import SectionWrapper from '@/components/layout/SectionWrapper.vue'
 import PageHeader from '@/components/layout/PageHeader.vue'
 import ProjectCard from '@/components/projects/ProjectCard.vue'
 import SkeletonCard from '@/components/projects/SkeletonCard.vue'
-import Loader from '@/components/common/Loader.vue'
 
 const projectStore = useProjectStore()
 const settingsStore = useSettingsStore()
@@ -75,7 +74,7 @@ onMounted(async () => {
       </div>
       
       <div v-if="projectStore.error" class="text-center py-12">
-        <Loader text="Loading projects..." />
+        <p class="text-red-600 text-lg">{{ projectStore.error.message }}</p>
       </div>
     </SectionWrapper>
   </div>

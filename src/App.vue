@@ -1,8 +1,4 @@
-<script setup lang="ts">
-import { createHead } from '@vueuse/head'
-
-createHead()
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <router-view />
