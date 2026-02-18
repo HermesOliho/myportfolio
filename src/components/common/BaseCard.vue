@@ -19,9 +19,9 @@ const paddingClasses = {
 }
 
 const cardClasses = `
-  bg-white rounded-lg border border-gray-200
-  ${props.shadow ? 'shadow-md' : ''}
-  ${props.hover ? 'transition-transform hover:scale-105 hover:shadow-lg' : ''}
+  bg-white rounded-xl border border-slate-200/50
+  ${props.shadow ? 'shadow-lg' : ''}
+  ${props.hover ? 'transition-all duration-300 hover:shadow-2xl hover:border-slate-300/80' : ''}
   ${paddingClasses[props.padding]}
 `
 </script>

@@ -16,26 +16,26 @@ const levelPercentage = computed(() => {
 })
 
 const levelColor = computed(() => {
-  if (props.skill.level >= 80) return 'bg-green-500'
-  if (props.skill.level >= 60) return 'bg-blue-500'
-  if (props.skill.level >= 40) return 'bg-yellow-500'
-  return 'bg-gray-500'
+  if (props.skill.level >= 80) return 'bg-linear-to-r from-emerald-500 to-green-500'
+  if (props.skill.level >= 60) return 'bg-linear-to-r from-blue-500 to-cyan-500'
+  if (props.skill.level >= 40) return 'bg-linear-to-r from-yellow-500 to-amber-500'
+  return 'bg-linear-to-r from-slate-500 to-slate-600'
 })
 </script>
 
 <template>
-  <div class="mb-4">
-    <div v-if="showLabel" class="flex justify-between mb-2">
-      <span class="text-sm font-medium text-gray-700">{{ skill.name }}</span>
-      <span class="text-sm text-gray-600">{{ skill.level }}%</span>
+  <div class="mb-6">
+    <div v-if="showLabel" class="flex justify-between items-center mb-2">
+      <span class="text-sm font-semibold text-slate-900">{{ skill.name }}</span>
+      <span class="text-sm font-semibold text-blue-600">{{ skill.level }}%</span>
     </div>
-    <div class="w-full bg-gray-200 rounded-full h-2.5">
+    <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden shadow-sm">
       <div
-        :class="[levelColor, 'h-2.5 rounded-full transition-all duration-500']"
+        :class="[levelColor, 'h-3 rounded-full transition-all duration-700 shadow-md']"
         :style="{ width: `${levelPercentage}%` }"
       ></div>
     </div>
-    <p v-if="skill.description" class="mt-2 text-sm text-gray-600">
+    <p v-if="skill.description" class="mt-2 text-sm text-slate-600 leading-relaxed">
       {{ skill.description }}
     </p>
   </div>

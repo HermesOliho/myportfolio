@@ -38,7 +38,7 @@ async function submitForm(): Promise<void> {
     toastMessage.value = response.data.data.message
     toastType.value = 'success'
     showToast.value = true
-    
+
     // Reset form
     formData.value = {
       name: '',
@@ -57,45 +57,45 @@ async function submitForm(): Promise<void> {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <SectionWrapper max-width="lg">
+  <div class="min-h-screen bg-linear-to-b from-slate-50 via-white to-slate-50">
+    <SectionWrapper max-width="2xl">
       <PageHeader
         title="Get In Touch"
-        subtitle="Have a question or want to work together?"
+        subtitle="Have a question or want to collaborate? I'd love to hear from you."
       />
-      
+
       <BaseCard>
         <form @submit.prevent="submitForm" class="space-y-6">
           <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-              Name
+            <label for="name" class="block text-sm font-semibold text-slate-900 mb-2">
+              Full Name
             </label>
             <input
               id="name"
               v-model="formData.name"
               type="text"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Your name"
+              class="w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              placeholder="John Doe"
             />
           </div>
-          
+
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-              Email
+            <label for="email" class="block text-sm font-semibold text-slate-900 mb-2">
+              Email Address
             </label>
             <input
               id="email"
               v-model="formData.email"
               type="email"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="your.email@example.com"
+              class="w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              placeholder="john@example.com"
             />
           </div>
-          
+
           <div>
-            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="subject" class="block text-sm font-semibold text-slate-900 mb-2">
               Subject
             </label>
             <input
@@ -103,13 +103,13 @@ async function submitForm(): Promise<void> {
               v-model="formData.subject"
               type="text"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="What's this about?"
+              class="w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              placeholder="How can I help you?"
             />
           </div>
-          
+
           <div>
-            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="message" class="block text-sm font-semibold text-slate-900 mb-2">
               Message
             </label>
             <textarea
@@ -117,24 +117,25 @@ async function submitForm(): Promise<void> {
               v-model="formData.message"
               required
               rows="6"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Your message..."
+              class="w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+              placeholder="Tell me more about your project or inquiry..."
             ></textarea>
           </div>
-          
+
           <BaseButton
             type="submit"
             variant="primary"
+            size="lg"
             class="w-full"
             :loading="loading"
             :disabled="loading"
           >
-            Send Message
+            {{ loading ? 'Sending...' : 'Send Message' }}
           </BaseButton>
         </form>
       </BaseCard>
     </SectionWrapper>
-    
+
     <ToastNotification
       :visible="showToast"
       :message="toastMessage"

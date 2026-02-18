@@ -18,7 +18,10 @@ useHead({
   meta: computed(() => [
     {
       name: 'description',
-      content: projectStore.currentProject?.meta_description || projectStore.currentProject?.short_description || '',
+      content:
+        projectStore.currentProject?.meta_description ||
+        projectStore.currentProject?.short_description ||
+        '',
     },
   ]),
 })
@@ -39,65 +42,71 @@ function openUrl(url: string | undefined): void {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <SectionWrapper max-width="2xl">
-      <div v-if="projectStore.loading" class="flex justify-center py-12">
+  <div class="min-h-screen bg-linear-to-b from-slate-50 via-white to-slate-50">
+    <SectionWrapper max-width="4xl">
+      <div v-if="projectStore.loading" class="flex justify-center py-20">
         <Loader text="Loading project..." />
       </div>
-      
-      <div v-else-if="projectStore.currentProject" class="space-y-8">
+
+      <div v-else-if="projectStore.currentProject" class="space-y-12">
         <!-- Header -->
-        <div class="text-center">
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <div class="text-center mb-12">
+          <h1
+            class="text-5xl md:text-6xl font-bold bg-linear-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent mb-4 leading-tight"
+          >
             {{ projectStore.currentProject.title }}
           </h1>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             {{ projectStore.currentProject.short_description }}
           </p>
         </div>
-        
+
         <!-- Main Image -->
-        <div class="overflow-hidden rounded-lg shadow-lg">
+        <div class="overflow-hidden rounded-2xl shadow-2xl">
           <img
             :src="projectStore.currentProject.main_image"
             :alt="projectStore.currentProject.title"
-            class="w-full h-auto"
+            class="w-full h-auto hover:scale-105 transition-transform duration-300"
           />
         </div>
-        
+
         <!-- Content -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <!-- Main Content -->
           <div class="lg:col-span-2">
             <BaseCard>
-              <h2 class="text-2xl font-bold text-gray-900 mb-4">About This Project</h2>
-              <div class="prose max-w-none text-gray-700" v-html="projectStore.currentProject.long_description"></div>
+              <h2 class="text-3xl font-bold text-slate-900 mb-6">About This Project</h2>
+              <div
+                class="prose prose-slate max-w-none text-slate-700"
+                v-html="projectStore.currentProject.long_description"
+              ></div>
             </BaseCard>
           </div>
-          
+
           <!-- Sidebar -->
           <div class="lg:col-span-1 space-y-6">
             <!-- Technologies -->
             <BaseCard>
-              <h3 class="text-xl font-bold text-gray-900 mb-4">Technologies Used</h3>
+              <h3 class="text-xl font-bold text-slate-900 mb-4">Technologies</h3>
               <div class="flex flex-wrap gap-2">
                 <span
                   v-for="tech in projectStore.currentProject.technologies"
                   :key="tech"
-                  class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                  class="px-3 py-2 bg-linear-to-r from-blue-50 to-blue-100 text-blue-700 text-sm font-medium rounded-full border border-blue-200"
                 >
                   {{ tech }}
                 </span>
               </div>
             </BaseCard>
-            
+
             <!-- Links -->
             <BaseCard>
-              <h3 class="text-xl font-bold text-gray-900 mb-4">Links</h3>
+              <h3 class="text-xl font-bold text-slate-900 mb-4">Links</h3>
               <div class="space-y-3">
                 <BaseButton
                   v-if="projectStore.currentProject.demo_url"
                   variant="primary"
+                  size="md"
                   class="w-full"
                   @click="openUrl(projectStore.currentProject.demo_url)"
                 >
@@ -106,6 +115,7 @@ function openUrl(url: string | undefined): void {
                 <BaseButton
                   v-if="projectStore.currentProject.github_url"
                   variant="outline"
+                  size="md"
                   class="w-full"
                   @click="openUrl(projectStore.currentProject.github_url)"
                 >
@@ -116,11 +126,11 @@ function openUrl(url: string | undefined): void {
           </div>
         </div>
       </div>
-      
-      <div v-else-if="projectStore.error" class="text-center py-12">
-        <p class="text-red-600 text-lg mb-4">{{ projectStore.error.message }}</p>
-        <BaseButton variant="primary" @click="$router.push('/projects')">
-          Back to Projects
+
+      <div v-else-if="projectStore.error" class="text-center py-20">
+        <p class="text-red-600 text-lg mb-6">{{ projectStore.error.message }}</p>
+        <BaseButton variant="primary" size="lg" @click="$router.push('/projects')">
+          ← Back to Projects
         </BaseButton>
       </div>
     </SectionWrapper>

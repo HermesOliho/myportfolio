@@ -22,25 +22,31 @@ const show = ref(props.visible)
 let timer: number | null = null
 
 const typeClasses = {
-  success: 'bg-green-100 border-green-500 text-green-900',
-  error: 'bg-red-100 border-red-500 text-red-900',
-  warning: 'bg-yellow-100 border-yellow-500 text-yellow-900',
-  info: 'bg-blue-100 border-blue-500 text-blue-900',
+  success:
+    'bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 text-green-900 shadow-lg',
+  error: 'bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-500 text-red-900 shadow-lg',
+  warning:
+    'bg-gradient-to-r from-yellow-50 to-amber-50 border-l-4 border-yellow-500 text-yellow-900 shadow-lg',
+  info: 'bg-gradient-to-r from-blue-50 to-sky-50 border-l-4 border-blue-500 text-blue-900 shadow-lg',
 }
 
 const iconPaths = {
   success: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
   error: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
-  warning: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+  warning:
+    'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
   info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
 }
 
-watch(() => props.visible, (newVal) => {
-  show.value = newVal
-  if (newVal && props.duration > 0) {
-    startTimer()
-  }
-})
+watch(
+  () => props.visible,
+  (newVal) => {
+    show.value = newVal
+    if (newVal && props.duration > 0) {
+      startTimer()
+    }
+  },
+)
 
 onMounted(() => {
   if (props.visible && props.duration > 0) {
@@ -74,15 +80,10 @@ function closeToast(): void {
       v-if="show"
       :class="[
         typeClasses[type],
-        'fixed top-4 right-4 z-50 flex items-start gap-3 p-4 rounded-lg border-l-4 shadow-lg max-w-md'
+        'fixed top-4 right-4 z-50 flex items-start gap-3 p-4 rounded-xl max-w-md',
       ]"
     >
-      <svg
-        class="w-6 h-6 flex-shrink-0"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
+      <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -91,10 +92,7 @@ function closeToast(): void {
         />
       </svg>
       <p class="flex-1 text-sm font-medium">{{ message }}</p>
-      <button
-        @click="closeToast"
-        class="flex-shrink-0 hover:opacity-70 transition-opacity"
-      >
+      <button @click="closeToast" class="shrink-0 hover:opacity-70 transition-opacity">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
           <path
             fill-rule="evenodd"

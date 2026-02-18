@@ -19,8 +19,11 @@ const sizeClasses = {
 <template>
   <div class="flex flex-col items-center justify-center space-y-4">
     <div
-      :class="[sizeClasses[size], 'animate-spin rounded-full border-4 border-gray-200 border-t-blue-600']"
+      :class="[
+        sizeClasses[size],
+        'animate-spin rounded-full border-4 border-slate-200 border-t-blue-600 shadow-lg',
+      ]"
     ></div>
-    <p v-if="text" class="text-gray-600">{{ text }}</p>
+    <p v-if="text" class="text-slate-600 font-medium text-lg">{{ text }}</p>
   </div>
 </template>

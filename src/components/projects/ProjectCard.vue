@@ -26,40 +26,38 @@ function openDemoUrl(): void {
 </script>
 
 <template>
-  <BaseCard padding="none">
-    <div class="overflow-hidden">
+  <BaseCard padding="none" hover>
+    <div class="overflow-hidden h-56 bg-linear-to-br from-slate-200 to-slate-300">
       <img
         :src="projectImage"
         :alt="project.title"
-        class="w-full h-48 object-cover"
+        class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
       />
     </div>
     <div class="p-6">
-      <h3 class="text-xl font-bold text-gray-900 mb-2">{{ project.title }}</h3>
-      <p class="text-gray-600 mb-4 line-clamp-3">{{ project.short_description }}</p>
-      
-      <div class="flex flex-wrap gap-2 mb-4">
+      <h3 class="text-xl font-bold text-slate-900 mb-2 line-clamp-2">{{ project.title }}</h3>
+      <p class="text-slate-600 mb-4 line-clamp-3 text-sm leading-relaxed">
+        {{ project.short_description }}
+      </p>
+
+      <div class="flex flex-wrap gap-2 mb-5">
         <span
           v-for="tech in project.technologies.slice(0, 3)"
           :key="tech"
-          class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+          class="px-3 py-1 bg-linear-to-r from-blue-50 to-blue-100 text-blue-700 text-xs font-medium rounded-full border border-blue-200"
         >
           {{ tech }}
         </span>
         <span
           v-if="project.technologies.length > 3"
-          class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
+          class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full"
         >
-          +{{ project.technologies.length - 3 }} more
+          +{{ project.technologies.length - 3 }}
         </span>
       </div>
-      
-      <div class="flex gap-2">
-        <BaseButton
-          :variant="'primary'"
-          size="sm"
-          @click="$router.push(projectUrl)"
-        >
+
+      <div class="flex gap-3">
+        <BaseButton variant="primary" size="sm" @click="$router.push(projectUrl)" class="flex-1">
           View Details
         </BaseButton>
         <BaseButton
@@ -67,6 +65,7 @@ function openDemoUrl(): void {
           variant="outline"
           size="sm"
           @click="openDemoUrl"
+          class="flex-1"
         >
           Live Demo
         </BaseButton>

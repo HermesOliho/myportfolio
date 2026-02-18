@@ -50,17 +50,14 @@ async function prevPage(): Promise<void> {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <SectionWrapper max-width="xl">
-      <PageHeader
-        title="All Projects"
-        subtitle="Explore my complete portfolio of work"
-      />
-      
+  <div class="min-h-screen bg-linear-to-b from-slate-50 via-white to-slate-50">
+    <SectionWrapper max-width="4xl">
+      <PageHeader title="All Projects" subtitle="Explore my complete portfolio of work" />
+
       <div v-if="projectStore.loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <SkeletonCard v-for="i in 6" :key="i" />
       </div>
-      
+
       <div
         v-else-if="projectStore.projects.length > 0"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -71,32 +68,34 @@ async function prevPage(): Promise<void> {
           :project="project"
         />
       </div>
-      
-      <div v-else class="text-center py-12">
-        <p class="text-gray-600">No projects found.</p>
+
+      <div v-else class="text-center py-16">
+        <p class="text-slate-600 text-lg">No projects found.</p>
       </div>
-      
+
       <!-- Pagination -->
       <div
         v-if="projectStore.pagination && projectStore.pagination.last_page > 1"
-        class="flex justify-center items-center gap-4 mt-8"
+        class="flex justify-center items-center gap-4 mt-12"
       >
         <BaseButton
           variant="outline"
           :disabled="currentPage === 1 || projectStore.loading"
           @click="prevPage"
         >
-          Previous
+          ← Previous
         </BaseButton>
-        <span class="text-gray-600">
-          Page {{ currentPage }} of {{ projectStore.pagination.last_page }}
-        </span>
+        <div class="px-4 py-2 bg-white border border-slate-200 rounded-lg">
+          <span class="text-slate-600 font-medium">
+            {{ currentPage }} / {{ projectStore.pagination.last_page }}
+          </span>
+        </div>
         <BaseButton
           variant="outline"
           :disabled="currentPage === projectStore.pagination.last_page || projectStore.loading"
           @click="nextPage"
         >
-          Next
+          Next →
         </BaseButton>
       </div>
     </SectionWrapper>

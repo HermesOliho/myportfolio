@@ -1,27 +1,28 @@
 <script setup lang="ts">
 interface Props {
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl' | 'full'
   spacing?: 'sm' | 'md' | 'lg'
 }
 
 withDefaults(defineProps<Props>(), {
-  maxWidth: 'xl',
+  maxWidth: 'lg',
   spacing: 'md',
 })
 
 const maxWidthClasses = {
-  sm: 'max-w-screen-sm',
-  md: 'max-w-screen-md',
-  lg: 'max-w-screen-lg',
-  xl: 'max-w-screen-xl',
-  '2xl': 'max-w-screen-2xl',
+  sm: 'max-w-sm',
+  md: 'max-w-md',
+  lg: 'max-w-lg',
+  xl: 'max-w-xl',
+  '2xl': 'max-w-2xl',
+  '4xl': 'max-w-4xl',
   full: 'max-w-full',
 }
 
 const spacingClasses = {
   sm: 'py-8',
-  md: 'py-12',
-  lg: 'py-16',
+  md: 'py-16',
+  lg: 'py-24',
 }
 </script>
 
