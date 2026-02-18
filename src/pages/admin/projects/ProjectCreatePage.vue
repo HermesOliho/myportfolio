@@ -24,7 +24,7 @@ const formData = ref<AdminProjectFormData>({
 })
 
 const technologiesInput = ref('')
-const errors = ref<Record<string, string>>({})
+const errors = ref<Record<string, string[]>>({})
 
 const statusOptions = [
   { value: 'draft', label: 'Draft' },
@@ -49,9 +49,9 @@ const handleSubmit = async () => {
   try {
     await projectStore.createProject(formData.value)
     router.push('/admin/projects')
-  } catch (error: any) {
-    if (error.errors) {
-      errors.value = error.errors
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'errors' in error) {
+      errors.value = (error as { errors: Record<string, string[]> }).errors
     }
     console.error('Failed to create project:', error)
   }

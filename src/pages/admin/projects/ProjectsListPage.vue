@@ -105,20 +105,20 @@ const hasNextPage = computed(() => {
         <template #cell-technologies="{ value }">
           <div class="flex flex-wrap gap-1">
             <span
-              v-for="tech in value.slice(0, 3)"
+              v-for="tech in (value as string[]).slice(0, 3)"
               :key="tech"
               class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800"
             >
               {{ tech }}
             </span>
-            <span v-if="value.length > 3" class="text-xs text-gray-500">
-              +{{ value.length - 3 }} more
+            <span v-if="(value as string[]).length > 3" class="text-xs text-gray-500">
+              +{{ (value as string[]).length - 3 }} more
             </span>
           </div>
         </template>
 
         <template #cell-created_at="{ value }">
-          {{ formatDate(value) }}
+          {{ formatDate(value as string) }}
         </template>
 
         <template #actions="{ item }">

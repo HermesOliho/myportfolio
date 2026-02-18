@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T extends Record<string, any>">
+<script setup lang="ts" generic="T extends Record<string, unknown>">
 interface Column {
   key: string
   label: string
@@ -14,8 +14,8 @@ interface Props {
 defineProps<Props>()
 
 defineSlots<{
-  [key: `cell-${string}`]: (props: { item: T; value: any }) => any
-  actions?: (props: { item: T }) => any
+  [key: `cell-${string}`]: (props: { item: T; value: unknown }) => unknown
+  actions?: (props: { item: T }) => unknown
 }>()
 </script>
 

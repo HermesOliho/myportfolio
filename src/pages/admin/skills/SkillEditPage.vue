@@ -21,7 +21,7 @@ const formData = ref<AdminSkillFormData>({
 const levelInput = ref('50')
 const displayOrderInput = ref('0')
 const iconInput = ref('')
-const errors = ref<Record<string, string>>({})
+const errors = ref<Record<string, string[]>>({})
 const loading = ref(true)
 
 const categoryOptions = [
@@ -66,9 +66,9 @@ const handleSubmit = async () => {
   try {
     await skillStore.updateSkill(skillId, formData.value)
     router.push('/admin/skills')
-  } catch (error: any) {
-    if (error.errors) {
-      errors.value = error.errors
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'errors' in error) {
+      errors.value = (error as { errors: Record<string, string[]> }).errors
     }
     console.error('Failed to update skill:', error)
   }

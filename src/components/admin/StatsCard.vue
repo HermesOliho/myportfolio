@@ -6,7 +6,7 @@ interface Props {
   color?: 'blue' | 'green' | 'purple' | 'orange'
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   color: 'blue'
 })
 

@@ -1,4 +1,4 @@
-export interface Skill {
+export interface Skill extends Record<string, unknown> {
   id: number
   name: string
   category: 'backend' | 'frontend' | 'devops' | 'tools'

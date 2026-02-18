@@ -1,4 +1,4 @@
-export interface Message {
+export interface Message extends Record<string, unknown> {
   id: number
   name: string
   email: string

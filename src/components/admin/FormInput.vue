@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   label: string
-  modelValue: string
+  modelValue: string | undefined
   type?: 'text' | 'email' | 'password' | 'url' | 'number'
   placeholder?: string
   required?: boolean

@@ -21,7 +21,7 @@ const formData = ref<AdminSettingsFormData>({
 
 const phoneInput = ref('')
 const locationInput = ref('')
-const errors = ref<Record<string, string>>({})
+const errors = ref<Record<string, string[]>>({})
 const loading = ref(true)
 
 onMounted(async () => {
@@ -57,9 +57,9 @@ const handleSubmit = async () => {
   
   try {
     await settingStore.updateSettings(formData.value)
-  } catch (error: any) {
-    if (error.errors) {
-      errors.value = error.errors
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'errors' in error) {
+      errors.value = (error as { errors: Record<string, string[]> }).errors
     }
     console.error('Failed to update settings:', error)
   }

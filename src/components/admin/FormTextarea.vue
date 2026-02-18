@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   label: string
-  modelValue: string
+  modelValue: string | undefined
   placeholder?: string
   required?: boolean
   error?: string

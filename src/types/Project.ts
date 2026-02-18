@@ -1,4 +1,4 @@
-export interface Project {
+export interface Project extends Record<string, unknown> {
   id: number
   title: string
   slug: string

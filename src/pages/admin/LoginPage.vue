@@ -22,8 +22,12 @@ const handleSubmit = async () => {
     
     // Redirect to dashboard on success
     router.push('/admin/dashboard')
-  } catch (error: any) {
-    errorMessage.value = error.message || 'Login failed. Please check your credentials.'
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'message' in error) {
+      errorMessage.value = (error as { message: string }).message
+    } else {
+      errorMessage.value = 'Login failed. Please check your credentials.'
+    }
   }
 }
 </script>

@@ -69,13 +69,13 @@ const formatDate = (dateString: string) => {
         </template>
 
         <template #cell-created_at="{ value }">
-          {{ formatDate(value) }}
+          {{ formatDate(value as string) }}
         </template>
 
         <template #actions="{ item }">
           <button
-            v-if="!item.is_read"
-            @click="handleMarkAsRead(item)"
+            v-if="!(item as Message).is_read"
+            @click="handleMarkAsRead(item as Message)"
             class="text-blue-600 hover:text-blue-900"
           >
             Mark as Read
