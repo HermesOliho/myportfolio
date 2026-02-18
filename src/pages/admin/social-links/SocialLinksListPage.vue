@@ -72,8 +72,8 @@ onMounted(() => {
         <tr>
           <th>Icon</th>
           <th>Platform</th>
-          <th>URL</th>
-          <th>Actions</th>
+          <th class="hidden lg:table-cell">URL</th>
+          <th class="text-right">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -83,22 +83,22 @@ onMounted(() => {
             <img :src="link.icon" :alt="link.platform" class="w-6 h-6" />
           </td>
           <td>{{ link.platform }}</td>
-          <td>
-            <a :href="link.url" target="_blank" class="text-blue-500 hover:underline">
+          <td class="hidden md:table-cell">
+            <a :href="link.url" target="_blank" class="text-blue-500 hover:underline line-clamp-2">
               {{ link.url }}
             </a>
           </td>
-          <td>
+          <td class="text-right">
             <router-link
               :to="{ name: 'admin-social-links-edit', params: { id: link.id } }"
               class="btn btn-sm btn-ghost btn-primary mr-2"
             >
               <Edit class="w-4 h-4 mr-1" />
-              Edit
+              <span class="hidden lg:inline">Edit</span>
             </router-link>
             <button class="btn btn-sm btn-ghost btn-error" @click="showConfirmDelete(link.id)">
               <Trash class="w-4 h-4 mr-1" />
-              Delete
+              <span class="hidden lg:inline">Delete</span>
             </button>
           </td>
         </tr>
