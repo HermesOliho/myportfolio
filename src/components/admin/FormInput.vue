@@ -22,8 +22,8 @@ const handleInput = (event: Event) => {
 </script>
 
 <template>
-  <div class="mb-6">
-    <label class="block text-sm font-semibold text-slate-900 mb-2">
+  <div class="form-control mb-6">
+    <label class="label">
       {{ label }}
       <span v-if="required" class="text-red-500">*</span>
     </label>
@@ -34,14 +34,10 @@ const handleInput = (event: Event) => {
       :required="required"
       :disabled="disabled"
       @input="handleInput"
-      :class="[
-        'w-full px-4 py-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 transition-all duration-200',
-        error
-          ? 'border-red-300 focus:ring-red-500 focus:border-red-500 bg-red-50'
-          : 'border-slate-200 focus:ring-blue-500 focus:border-blue-500 bg-white',
-        disabled ? 'bg-slate-100 cursor-not-allowed text-slate-500' : '',
-      ]"
+      :class="['input input-bordered w-full', error ? 'input-error' : 'input-primary']"
     />
-    <p v-if="error" class="mt-2 text-sm text-red-600 font-medium">{{ error }}</p>
+    <label v-if="error" class="label">
+      <span class="label-text-alt text-error">{{ error }}</span>
+    </label>
   </div>
 </template>

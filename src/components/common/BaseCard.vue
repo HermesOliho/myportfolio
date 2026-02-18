@@ -13,21 +13,23 @@ const props = withDefaults(defineProps<Props>(), {
 
 const paddingClasses = {
   none: '',
-  sm: 'p-4',
-  md: 'p-6',
-  lg: 'p-8',
+  sm: 'card-body p-4',
+  md: 'card-body p-6',
+  lg: 'card-body p-8',
 }
 
 const cardClasses = `
-  bg-white rounded-xl border border-slate-200/50
+  card bg-base-100 border border-base-300/60 rounded-2xl
   ${props.shadow ? 'shadow-lg' : ''}
-  ${props.hover ? 'transition-all duration-300 hover:shadow-2xl hover:border-slate-300/80' : ''}
-  ${paddingClasses[props.padding]}
+  ${props.hover ? 'transition-all duration-300 hover:shadow-2xl hover:-translate-y-0.5' : ''}
 `
 </script>
 
 <template>
   <div :class="cardClasses">
-    <slot></slot>
+    <slot v-if="padding === 'none'"></slot>
+    <div v-else :class="paddingClasses[padding]">
+      <slot></slot>
+    </div>
   </div>
 </template>

@@ -29,23 +29,21 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <nav class="bg-white shadow-sm border-b border-gray-200">
+  <nav class="navbar bg-base-100 border-b border-base-300 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex">
-          <div class="flex-shrink-0 flex items-center">
-            <h1 class="text-xl font-bold text-gray-900">Portfolio Admin</h1>
+          <div class="shrink-0 flex items-center">
+            <h1 class="text-xl font-bold text-primary">Portfolio Admin</h1>
           </div>
-          <div class="hidden sm:ml-8 sm:flex sm:space-x-4">
+          <div class="hidden sm:ml-8 sm:flex sm:space-x-2">
             <router-link
               v-for="item in navigation"
               :key="item.path"
               :to="item.path"
               :class="[
-                'inline-flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors',
-                isActive(item.path)
-                  ? 'bg-blue-50 text-blue-700'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                'btn btn-ghost btn-sm normal-case text-sm font-medium',
+                isActive(item.path) ? 'btn-active text-primary' : 'text-base-content/70',
               ]"
             >
               <span class="mr-2">{{ item.icon }}</span>
@@ -54,13 +52,10 @@ const handleLogout = async () => {
           </div>
         </div>
         <div class="flex items-center">
-          <span class="text-sm text-gray-700 mr-4">{{ authStore.user?.name || 'Admin' }}</span>
-          <button
-            @click="handleLogout"
-            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
-          >
-            Logout
-          </button>
+          <span class="text-sm text-base-content/70 mr-4">{{
+            authStore.user?.name || 'Admin'
+          }}</span>
+          <button @click="handleLogout" class="btn btn-error btn-sm normal-case">Logout</button>
         </div>
       </div>
     </div>

@@ -66,58 +66,50 @@ async function submitForm(): Promise<void> {
 
       <BaseCard>
         <form @submit.prevent="submitForm" class="space-y-6">
-          <div>
-            <label for="name" class="block text-sm font-semibold text-slate-900 mb-2">
-              Full Name
-            </label>
+          <div class="form-control">
+            <label for="name" class="label font-semibold"> Full Name </label>
             <input
               id="name"
               v-model="formData.name"
               type="text"
               required
-              class="w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              class="input input-bordered input-primary w-full"
               placeholder="John Doe"
             />
           </div>
 
-          <div>
-            <label for="email" class="block text-sm font-semibold text-slate-900 mb-2">
-              Email Address
-            </label>
+          <div class="form-control">
+            <label for="email" class="label font-semibold"> Email Address </label>
             <input
               id="email"
               v-model="formData.email"
               type="email"
               required
-              class="w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              class="input input-bordered input-primary w-full"
               placeholder="john@example.com"
             />
           </div>
 
-          <div>
-            <label for="subject" class="block text-sm font-semibold text-slate-900 mb-2">
-              Subject
-            </label>
+          <div class="form-control">
+            <label for="subject" class="label font-semibold"> Subject </label>
             <input
               id="subject"
               v-model="formData.subject"
               type="text"
               required
-              class="w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              class="input input-bordered input-primary w-full"
               placeholder="How can I help you?"
             />
           </div>
 
-          <div>
-            <label for="message" class="block text-sm font-semibold text-slate-900 mb-2">
-              Message
-            </label>
+          <div class="form-control">
+            <label for="message" class="label font-semibold"> Message </label>
             <textarea
               id="message"
               v-model="formData.message"
               required
               rows="6"
-              class="w-full px-4 py-3 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+              class="textarea textarea-bordered textarea-primary w-full resize-none"
               placeholder="Tell me more about your project or inquiry..."
             ></textarea>
           </div>
