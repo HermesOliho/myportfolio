@@ -40,8 +40,13 @@ api.interceptors.response.use(
     
     // Handle specific error cases
     if (apiError.status === 401) {
-      // Unauthorized - clear token and redirect to login if needed
+      // Unauthorized - clear token and redirect to login
       localStorage.removeItem('auth_token')
+      
+      // Only redirect to login if we're in an admin route
+      if (window.location.pathname.startsWith('/admin') && !window.location.pathname.includes('/admin/login')) {
+        window.location.href = '/admin/login'
+      }
     }
     
     return Promise.reject(apiError)

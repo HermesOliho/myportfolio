@@ -1,8 +1,9 @@
 export interface Skill {
   id: number
   name: string
-  category: string
+  category: 'backend' | 'frontend' | 'devops' | 'tools'
   level: number
+  display_order: number
   icon?: string
   description?: string
   years_experience?: number
