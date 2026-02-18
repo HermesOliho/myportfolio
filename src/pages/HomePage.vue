@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useHead } from '@vueuse/head'
 import { useProjectStore } from '@/stores/useProjectStore'
 import { useSettingsStore } from '@/stores/useSettingsStore'
@@ -11,6 +11,13 @@ import BaseButton from '@/components/common/BaseButton.vue'
 
 const projectStore = useProjectStore()
 const settingsStore = useSettingsStore()
+const ownerName = computed(() => settingsStore.settings?.full_name || 'Portfolio Owner')
+const ownerPhoto = computed(() => settingsStore.settings?.site_logo || '/profile-placeholder.svg')
+
+function handleProfileImageError(event: Event): void {
+  const target = event.target as HTMLImageElement
+  target.src = '/profile-placeholder.svg'
+}
 
 useHead({
   title: 'Home - Portfolio',
@@ -35,25 +42,42 @@ onMounted(async () => {
   <div class="min-h-screen">
     <!-- Hero Section -->
     <SectionWrapper spacing="lg" max-width="4xl">
-      <div class="text-center py-20">
-        <h1
-          class="text-6xl md:text-7xl font-bold bg-linear-to-r from-blue-600 via-blue-700 to-slate-900 bg-clip-text text-transparent mb-6 leading-tight"
-        >
-          {{ settingsStore.settings?.professional_title || 'Full Stack Developer' }}
-        </h1>
-        <p class="text-xl md:text-2xl text-slate-600 mb-4 max-w-3xl mx-auto leading-relaxed">
-          {{
-            settingsStore.settings?.short_bio ||
-            'Building modern web applications and SaaS products with cutting-edge technologies'
-          }}
-        </p>
-        <div class="flex gap-4 justify-center mt-8">
-          <router-link to="/projects">
-            <BaseButton variant="primary" size="lg"> View My Work </BaseButton>
-          </router-link>
-          <router-link to="/contact">
-            <BaseButton variant="outline" size="lg"> Get In Touch </BaseButton>
-          </router-link>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center py-20">
+        <div class="flex justify-center lg:justify-end order-1 lg:order-2">
+          <div class="relative">
+            <div
+              class="absolute -inset-2 rounded-3xl bg-linear-to-r from-blue-400/30 to-slate-300/40 blur-md"
+            ></div>
+            <img
+              :src="ownerPhoto"
+              :alt="ownerName"
+              class="relative w-64 h-64 md:w-80 md:h-80 rounded-3xl object-cover border border-slate-200 shadow-2xl"
+              @error="handleProfileImageError"
+            />
+          </div>
+        </div>
+
+        <div class="text-center lg:text-left order-2 lg:order-1">
+          <p class="text-blue-600 font-semibold mb-3">{{ ownerName }}</p>
+          <h1
+            class="text-5xl md:text-6xl font-bold bg-linear-to-r from-blue-600 via-blue-700 to-slate-900 bg-clip-text text-transparent mb-6 leading-tight"
+          >
+            {{ settingsStore.settings?.professional_title || 'Full Stack Developer' }}
+          </h1>
+          <p class="text-lg md:text-xl text-slate-600 mb-4 leading-relaxed">
+            {{
+              settingsStore.settings?.short_bio ||
+              'Building modern web applications and SaaS products with cutting-edge technologies'
+            }}
+          </p>
+          <div class="flex gap-4 justify-center lg:justify-start mt-8">
+            <router-link to="/projects">
+              <BaseButton variant="primary" size="lg"> View My Work </BaseButton>
+            </router-link>
+            <router-link to="/contact">
+              <BaseButton variant="outline" size="lg"> Get In Touch </BaseButton>
+            </router-link>
+          </div>
         </div>
       </div>
     </SectionWrapper>
