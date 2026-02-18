@@ -44,6 +44,15 @@ const isActive = (path: string): boolean => {
       <biceps-flexed class="w-5 h-5 mr-1 text-secondary" />
       Skills
     </router-link>
+    <!-- Social Links  -->
+    <router-link
+      key="admin-social-links"
+      :to="{ name: 'admin-social-links' }"
+      :class="['tab bg-base-100', isActive('admin-social-links') ? 'tab-active' : '']"
+    >
+      <messages-square class="w-5 h-5 mr-1 text-secondary" />
+      Social Links
+    </router-link>
     <!-- Messages  -->
     <router-link
       key="admin-messages"

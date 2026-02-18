@@ -46,7 +46,7 @@ h3 {
 }
 
 /* Link styles */
-a {
+a:not(.btn) {
   @apply text-primary hover:text-primary/80 transition-colors;
 }
 

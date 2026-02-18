@@ -85,6 +85,21 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/pages/admin/skills/SkillEditPage.vue'),
       },
       {
+        path: 'social-links',
+        name: 'admin-social-links',
+        component: () => import('@/pages/admin/social-links/SocialLinksListPage.vue'),
+      },
+      {
+        path: 'social-links/create',
+        name: 'admin-social-links-create',
+        component: () => import('@/pages/admin/social-links/SocialLinkCreatePage.vue'),
+      },
+      {
+        path: 'social-links/:id/edit',
+        name: 'admin-social-links-edit',
+        component: () => import('@/pages/admin/social-links/SocialLinkEditPage.vue'),
+      },
+      {
         path: 'messages',
         name: 'admin-messages',
         component: () => import('@/pages/admin/messages/MessagesListPage.vue'),
@@ -112,7 +127,7 @@ const router = createRouter({
 
 // Navigation guard for protected routes
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
   const isAuthenticated = authService.isAuthenticated()
 
   if (requiresAuth && !isAuthenticated) {
