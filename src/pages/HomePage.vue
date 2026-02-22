@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useHead } from '@vueuse/head'
 import { useProjectStore } from '@/stores/useProjectStore'
 import { useSettingsStore } from '@/stores/useSettingsStore'
@@ -11,8 +11,13 @@ import BaseButton from '@/components/common/BaseButton.vue'
 
 const projectStore = useProjectStore()
 const settingsStore = useSettingsStore()
+
+const backendURL = ref<string>('')
 const ownerName = computed(() => settingsStore.settings?.full_name || 'Portfolio Owner')
-const ownerPhoto = computed(() => settingsStore.settings?.site_logo || '/profile-placeholder.svg')
+const ownerPhoto = computed(
+  () =>
+    `${backendURL.value}${settingsStore.settings?.profile_picture}` || '/profile-placeholder.svg',
+)
 
 function handleProfileImageError(event: Event): void {
   const target = event.target as HTMLImageElement
@@ -31,6 +36,9 @@ useHead({
 
 onMounted(async () => {
   try {
+    if (import.meta.env.VITE_API_BASE_URL) {
+      backendURL.value = import.meta.env.VITE_API_BASE_URL.replace(/api\/(v[0-9.]+)?/, '')
+    }
     await Promise.all([projectStore.fetchFeaturedProjects(3), settingsStore.fetchSettings()])
   } catch (error) {
     console.error('Error loading home page:', error)

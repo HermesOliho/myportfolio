@@ -11,6 +11,7 @@ export interface Settings {
   footer_text?: string
   meta_keywords?: string
   // Portfolio owner information
+  profile_picture?: string
   full_name: string
   professional_title: string
   short_bio: string
