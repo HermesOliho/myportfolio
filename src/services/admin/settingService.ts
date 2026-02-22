@@ -16,6 +16,10 @@ export const adminSettingService = {
    * Update settings
    */
   async update(data: AdminSettingsFormData): Promise<AxiosResponse<ApiResponse<Settings>>> {
-    return api.put<ApiResponse<Settings>>('/admin/settings', data)
-  }
+    return api.put<ApiResponse<Settings>>('/admin/settings', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+  },
 }

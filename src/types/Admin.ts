@@ -45,6 +45,7 @@ export interface AdminSkillFormData {
 }
 
 export interface AdminSettingsFormData {
+  profile_picture?: File
   full_name: string
   professional_title: string
   short_bio: string

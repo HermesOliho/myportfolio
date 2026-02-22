@@ -4,10 +4,12 @@ import { useAdminSettingStore } from '@/stores/admin/useAdminSettingStore'
 import FormInput from '@/components/admin/FormInput.vue'
 import FormTextarea from '@/components/admin/FormTextarea.vue'
 import type { AdminSettingsFormData } from '@/types/Admin'
+import FileInput from '@/components/admin/FileInput.vue'
 
 const settingStore = useAdminSettingStore()
 
 const formData = ref<AdminSettingsFormData>({
+  profile_picture: undefined,
   full_name: '',
   professional_title: '',
   short_bio: '',
@@ -51,10 +53,10 @@ onMounted(async () => {
 
 const handleSubmit = async () => {
   errors.value = {}
-  
+
   formData.value.phone = phoneInput.value || undefined
   formData.value.location = locationInput.value || undefined
-  
+
   try {
     await settingStore.updateSettings(formData.value)
   } catch (error: unknown) {
@@ -80,6 +82,16 @@ const handleSubmit = async () => {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="md:col-span-2">
           <h2 class="text-lg font-semibold text-gray-900 mb-4">Personal Information</h2>
+        </div>
+
+        <!-- Profile Picture previewer -->
+        <div class="md:col-span-2">
+          <FileInput
+            v-model="formData.profile_picture"
+            label="Profile Picture"
+            type="file"
+            :error="errors.profile_picture?.[0]"
+          />
         </div>
 
         <FormInput
@@ -127,18 +139,10 @@ const handleSubmit = async () => {
           :error="errors.email?.[0]"
         />
 
-        <FormInput
-          v-model="phoneInput"
-          label="Phone"
-          :error="errors.phone?.[0]"
-        />
+        <FormInput v-model="phoneInput" label="Phone" :error="errors.phone?.[0]" />
 
         <div class="md:col-span-2">
-          <FormInput
-            v-model="locationInput"
-            label="Location"
-            :error="errors.location?.[0]"
-          />
+          <FormInput v-model="locationInput" label="Location" :error="errors.location?.[0]" />
         </div>
 
         <div class="md:col-span-2">
