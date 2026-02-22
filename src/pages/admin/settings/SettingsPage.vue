@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useAdminSettingStore } from '@/stores/admin/useAdminSettingStore'
+import FileInput from '@/components/admin/FileInput.vue'
 import FormInput from '@/components/admin/FormInput.vue'
 import FormTextarea from '@/components/admin/FormTextarea.vue'
+import { getBackendUrl } from '@/helpers/getBackendUrl'
+import { useAdminSettingStore } from '@/stores/admin/useAdminSettingStore'
 import type { AdminSettingsFormData } from '@/types/Admin'
-import FileInput from '@/components/admin/FileInput.vue'
+import { PencilIcon, XIcon } from 'lucide-vue-next'
+import { onMounted, ref, watch } from 'vue'
 
 const settingStore = useAdminSettingStore()
 
@@ -23,8 +25,23 @@ const formData = ref<AdminSettingsFormData>({
 
 const phoneInput = ref('')
 const locationInput = ref('')
+// const profilePictureInput = useTemplateRef('profile-picture-input')
+
 const errors = ref<Record<string, string[]>>({})
 const loading = ref(true)
+
+const clickOnPictureInput = () => {
+  const input = document.querySelector(
+    '#profilePictureInput input[type="file"]',
+  ) as HTMLInputElement
+  input?.click()
+}
+
+const resetProfilePicture = () => {
+  formData.value.profile_picture = undefined
+  const picturePreviwer = document.getElementById('profilePicturePreview') as HTMLImageElement
+  picturePreviwer.src = getBackendUrl() + settingStore.settings?.profile_picture
+}
 
 onMounted(async () => {
   try {
@@ -50,6 +67,17 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+watch(
+  () => formData.value.profile_picture,
+  () => {
+    const newImage = formData.value.profile_picture
+    if (newImage) {
+      const picturePreviwer = document.getElementById('profilePicturePreview') as HTMLImageElement
+      picturePreviwer.src = URL.createObjectURL(newImage)
+    }
+  },
+)
 
 const handleSubmit = async () => {
   errors.value = {}
@@ -85,8 +113,34 @@ const handleSubmit = async () => {
         </div>
 
         <!-- Profile Picture previewer -->
-        <div class="md:col-span-2">
+        <div class="md:col-span-2 flex items-center justify-center p-2">
+          <div class="w-56 h-56 relative">
+            <img
+              id="profilePicturePreview"
+              :src="getBackendUrl() + settingStore.settings?.profile_picture"
+              alt="My profile picture"
+              class="object-cover rounded-full"
+            />
+            <button
+              v-if="formData.profile_picture"
+              class="btn btn-square btn-error absolute bottom-0 left-2"
+              title="Réinitialiser la photo de profil"
+              @click="resetProfilePicture"
+            >
+              <XIcon class="w-4 h-4" />
+            </button>
+            <button
+              class="btn btn-square btn-primary absolute bottom-0 right-2"
+              @click="clickOnPictureInput"
+            >
+              <PencilIcon class="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 hidden">
           <FileInput
+            id="profilePictureInput"
             v-model="formData.profile_picture"
             label="Profile Picture"
             type="file"

@@ -8,6 +8,7 @@ import PageHeader from '@/components/layout/PageHeader.vue'
 import ProjectCard from '@/components/projects/ProjectCard.vue'
 import SkeletonCard from '@/components/projects/SkeletonCard.vue'
 import BaseButton from '@/components/common/BaseButton.vue'
+import { getBackendUrl } from '@/helpers/getBackendUrl'
 
 const projectStore = useProjectStore()
 const settingsStore = useSettingsStore()
@@ -37,7 +38,7 @@ useHead({
 onMounted(async () => {
   try {
     if (import.meta.env.VITE_API_BASE_URL) {
-      backendURL.value = import.meta.env.VITE_API_BASE_URL.replace(/api\/(v[0-9.]+)?/, '')
+      backendURL.value = getBackendUrl()
     }
     await Promise.all([projectStore.fetchFeaturedProjects(3), settingsStore.fetchSettings()])
   } catch (error) {
