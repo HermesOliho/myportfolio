@@ -33,11 +33,11 @@ const formatDate = (dateString: string) => {
 }
 
 const quickActions = [
-  { label: 'New Project', to: '/admin/projects/create', icon: FolderKanban, desc: 'Add a new project to your portfolio' },
-  { label: 'Add Skill', to: '/admin/skills/create', icon: BicepsFlexed, desc: 'Add a skill to your profile' },
-  { label: 'Messages', to: '/admin/messages', icon: Mail, desc: 'Check contact form submissions' },
-  { label: 'Settings', to: '/admin/settings', icon: Settings2, desc: 'Update your portfolio configuration' },
-  { label: 'Social Links', to: '/admin/social-links/create', icon: Link2, desc: 'Add a social link' },
+  { label: 'New Project', to: { name: 'admin-projects-create' }, icon: FolderKanban, desc: 'Add a new project to your portfolio' },
+  { label: 'Add Skill', to: { name: 'admin-skills-create' }, icon: BicepsFlexed, desc: 'Add a skill to your profile' },
+  { label: 'Messages', to: { name: 'admin-messages' }, icon: Mail, desc: 'Check contact form submissions' },
+  { label: 'Settings', to: { name: 'admin-settings' }, icon: Settings2, desc: 'Update your portfolio configuration' },
+  { label: 'Social Links', to: { name: 'admin-social-links-create' }, icon: Link2, desc: 'Add a social link' },
 ]
 </script>
 

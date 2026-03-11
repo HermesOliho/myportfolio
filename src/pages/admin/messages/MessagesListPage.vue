@@ -234,7 +234,6 @@ const unreadCount = computed(() => messageStore.messages.filter((m) => !m.is_rea
       @close="showModal = false"
       @markAsRead="handleMarkAsRead"
       @delete="confirmDelete"
-      @reply="() => {}"
     />
 
     <!-- Delete Confirm Dialog -->

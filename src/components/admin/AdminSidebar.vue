@@ -16,10 +16,12 @@ import {
   Moon,
   Sun,
 } from 'lucide-vue-next'
+import { useToast } from '@/composables/useToast'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const messageStore = useAdminMessageStore()
+const toast = useToast()
 
 const collapsed = ref(false)
 const isDark = ref(false)
@@ -59,6 +61,7 @@ const handleLogout = async () => {
     router.push('/admin/login')
   } catch (error) {
     console.error('Logout error:', error)
+    toast.error('Logout failed. Please try again.')
   }
 }
 

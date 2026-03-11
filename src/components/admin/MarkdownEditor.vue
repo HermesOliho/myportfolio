@@ -38,8 +38,10 @@ const handleInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLTextAreaElement).value)
 }
 
+const textareaRef = ref<HTMLTextAreaElement | null>(null)
+
 const insertMarkdown = (before: string, after = '') => {
-  const textarea = document.querySelector<HTMLTextAreaElement>('.md-editor-textarea')
+  const textarea = textareaRef.value
   if (!textarea) return
   const start = textarea.selectionStart
   const end = textarea.selectionEnd
@@ -110,6 +112,7 @@ const charCount = computed(() => props.modelValue.length)
 
     <!-- Editor -->
     <textarea
+      ref="textareaRef"
       v-show="mode === 'edit'"
       :value="modelValue"
       @input="handleInput"
@@ -117,7 +120,7 @@ const charCount = computed(() => props.modelValue.length)
       :placeholder="placeholder"
       :required="required"
       :class="[
-        'md-editor-textarea textarea textarea-bordered rounded-t-none w-full font-mono text-sm resize-y',
+        'textarea textarea-bordered rounded-t-none w-full font-mono text-sm resize-y',
         error ? 'textarea-error' : 'textarea-primary',
       ]"
     />

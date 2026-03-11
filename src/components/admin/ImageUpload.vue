@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
 import { UploadCloud, X, ImageIcon } from 'lucide-vue-next'
 
 interface Props {
@@ -50,14 +50,27 @@ const processFile = (file: File) => {
     localError.value = `File size must be less than ${props.maxSizeMb}MB.`
     return
   }
+  // Revoke previous object URL to avoid memory leaks
+  if (localPreview.value && localPreview.value !== props.previewUrl) {
+    URL.revokeObjectURL(localPreview.value)
+  }
   const url = URL.createObjectURL(file)
   localPreview.value = url
   emit('update:modelValue', file)
   emit('update:previewUrl', url)
 }
 
+onUnmounted(() => {
+  if (localPreview.value && localPreview.value !== props.previewUrl) {
+    URL.revokeObjectURL(localPreview.value)
+  }
+})
+
 const clearImage = () => {
-  localPreview.value = props.previewUrl ?? ''
+  if (localPreview.value && localPreview.value !== props.previewUrl) {
+    URL.revokeObjectURL(localPreview.value)
+  }
+  localPreview.value = ''
   emit('update:modelValue', null)
   localError.value = ''
 }
