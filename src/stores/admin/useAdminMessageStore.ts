@@ -49,6 +49,21 @@ export const useAdminMessageStore = defineStore('adminMessage', () => {
     }
   }
 
+  async function deleteMessage(id: number): Promise<void> {
+    loading.value = true
+    error.value = null
+
+    try {
+      await messageService.delete(id)
+      messages.value = messages.value.filter((m) => m.id !== id)
+    } catch (err) {
+      error.value = err as ApiError
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
   function clearError(): void {
     error.value = null
   }
@@ -62,6 +77,7 @@ export const useAdminMessageStore = defineStore('adminMessage', () => {
     // Actions
     fetchMessages,
     markAsRead,
+    deleteMessage,
     clearError,
   }
 })

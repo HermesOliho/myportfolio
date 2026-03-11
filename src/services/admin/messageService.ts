@@ -19,5 +19,12 @@ export const messageService = {
    */
   async markAsRead(id: number): Promise<AxiosResponse<ApiResponse<Message>>> {
     return api.patch<ApiResponse<Message>>(`/admin/messages/${id}/read`)
-  }
+  },
+
+  /**
+   * Delete a message
+   */
+  async delete(id: number): Promise<AxiosResponse<void>> {
+    return api.delete<void>(`/admin/messages/${id}`)
+  },
 }

@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import AdminNavbar from '@/components/admin/AdminNavbar.vue'
-import AdminTabs from '@/components/admin/AdminTabs.vue'
+import AdminSidebar from '@/components/admin/AdminSidebar.vue'
+import ToastContainer from '@/components/admin/ToastContainer.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-base-200 text-base-content">
-    <AdminNavbar />
-    <main class="py-6">
-      <div class="bg-base-100 backdrop-blur-md border-b border-base-300 mb-6 p-2">
-        <AdminTabs class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4" />
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <router-view />
-        </div>
+  <div class="flex h-screen overflow-hidden bg-base-200 text-base-content">
+    <AdminSidebar />
+    <main class="flex-1 overflow-y-auto">
+      <div class="p-6 min-h-full">
+        <router-view />
       </div>
     </main>
+    <ToastContainer />
   </div>
 </template>
